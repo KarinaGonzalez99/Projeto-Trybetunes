@@ -9,12 +9,12 @@
     border: none;
     cursor: pointer;
   }
-  
+
   .cute-button.pink {
     background-color: pink;
     color: white;
   }
-  
+
   .cute-button.pink:hover {
     box-shadow: 0 0 10px pink;
     transform: translateY(-2px);
@@ -27,13 +27,13 @@
     border: none;
     box-sizing: border-box;
   }
-  
+
   .cute-input.pink {
     background-color: pink;
     color: white;
   }
-  
+
   .cute-input.pink:hover {
     box-shadow: 0 0 10px pink;
     transform: translateY(-2px);
-  } */
+} */

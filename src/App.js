@@ -9,10 +9,37 @@ import ProfileEdit from './pages/ProfileEdit';
 import NotFound from './pages/NotFound';
 
 class App extends React.Component {
+  state = {
+    nome: '',
+    disabled: true,
+  };
+
+  handleChangeButton = ({ target: { value } }) => {
+    this.setState({ nome: value }, this.handleValidation);
+  };
+
+  handleValidation = () => {
+    const { nome } = this.state;
+    const tamanhoMin = nome.length > 2;
+    this.setState({ disabled: !tamanhoMin });
+  };
+
   render() {
+    const { nome, disabled } = this.state;
     return (
       <BrowserRouter>
-        <Route path="/" component={ Login } />
+        <Route
+          exact
+          path="/"
+          render={ (props) => (
+            <Login
+              { ...props }
+              handleChange={ this.handleChangeButton }
+              value={ nome }
+              buttonDisabled={ disabled }
+            />
+          ) }
+        />
         <Route path="/search" component={ Search } />
         <Route path="/album/:id" component={ Album } />
         <Route path="/favorites" component={ Favorites } />
@@ -23,5 +50,6 @@ class App extends React.Component {
     );
   }
 }
+
 // iniciando
 export default App;

@@ -24,6 +24,16 @@ class App extends React.Component {
     this.setState({ disabled: !tamanhoMin });
   };
 
+  handleChangeButtonn = ({ target: { value } }) => {
+    this.setState({ nome: value }, this.handleValidationn);
+  };
+
+  handleValidationn = () => {
+    const { nome } = this.state;
+    const tamanhoMin = nome.length > 1;
+    this.setState({ disabled: !tamanhoMin });
+  };
+
   render() {
     const { nome, disabled } = this.state;
     return (
@@ -41,7 +51,18 @@ class App extends React.Component {
               />
             ) }
           />
-          <Route path="/search" component={ Search } />
+
+          <Route
+            path="/search"
+            render={ (props) => (
+              <Search
+                { ...props }
+                handleChange={ this.handleChangeButtonn }
+                value={ nome }
+                buttonDisabled={ disabled }
+              />) }
+          />
+
           <Route path="/album/:id" component={ Album } />
           <Route path="/favorites" component={ Favorites } />
           <Route exact path="/profile" component={ Profile } />

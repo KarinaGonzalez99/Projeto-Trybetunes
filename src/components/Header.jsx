@@ -29,9 +29,9 @@ class Header extends React.Component {
       <header data-testid="header-component">
 
         <ul>
-          <li><Link data-testid="link-to-search" to="/search">Search</Link></li>
-          <li><Link data-testid="link-to-favorites" to="/favorites">Favorites</Link></li>
-          <li><Link data-testid="link-to-profile" to="/profile">Profile</Link></li>
+          <li><Link data-testid="link-to-search" to="/search">Pesquisa</Link></li>
+          <li><Link data-testid="link-to-favorites" to="/favorites">Favorito</Link></li>
+          <li><Link data-testid="link-to-profile" to="/profile">Perfil</Link></li>
         </ul>
 
         <div data-testid="header-user-name">{id.name }</div>

@@ -1,27 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { addSong } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
 import Carregar from '../pages/Carregar';
 
 export default class Music extends React.Component {
   state = {
     carregando: false,
+    favoritar: false,
   };
+
+  componentDidMount() {
+    this.musicasFav().then((favoritar) => {
+      this.setState({ favoritar });
+    });
+  }
 
   handleChangeFavorite = async ({ target: { checked } }) => {
     const { musics } = this.props;
-
     this.setState({ carregando: true });
-
     if (checked) {
       await addSong(musics);
     }
-    this.setState({ carregando: false });
+    this.setState({ carregando: false, favoritar: checked });
+  };
+
+  musicasFav = async () => {
+    const { musics: { trackId } } = this.props;
+    const songs = await getFavoriteSongs();
+    return songs.find((song) => song.trackId === trackId) !== undefined;
   };
 
   render() {
     const { musics: { trackName, trackId, previewUrl } } = this.props;
-    const { carregando } = this.state;
+    const { carregando, favoritar } = this.state;
     return (
       <div>
         <span>{trackName}</span>
@@ -48,6 +59,7 @@ export default class Music extends React.Component {
             name="favoritar"
             id="favoritar"
             onChange={ this.handleChangeFavorite }
+            checked={ favoritar }
           />
         </label>
         <div>
